@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
-import { useContext } from "react";
+// import { useContext } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { MovieContext } from "../context/MovieDetailContext";
+// import { MovieContext } from "../context/MovieDetailContext";
+import { useNavigate } from "react-router-dom";
 
 const responsive = {
   superLargeDesktop: {
@@ -24,33 +25,45 @@ const responsive = {
 };
 
 const MovieList = ({ title, data }) => {
-  const { handleVideoTrailer } = useContext(MovieContext);
+  const navigate = useNavigate();
+
 
   return (
-    <div className="my-10 px-10 max-w-full ">
-      <h2 className="text-xl uppercase mb-4">{title}</h2>
-      <Carousel responsive={responsive} draggable={false}>
-        {data?.map((movie) => (
-          <div
-            key={movie.id}
-            className="bg-cover bg-no-repeat bg-center w-[200px] h-[300px] relative hover:scale-110 transition-transform duration-500 ease-in-out cursor-pointer"
-            style={{
-              backgroundImage: ` url(${import.meta.env.VITE_IMG_URL}${
-                movie.poster_path
-              })`,
-            }}
-            onClick={() => handleVideoTrailer(movie.id)}
-          >
-            <div className="bg-black w-full h-full opacity-40 absolute top-0 left-0 z-0" />
-            <div className="relative  p-4 flex flex-col items-center justify-end h-full">
-              <h3 className="text-md uppercase">
-                {movie.name || movie.title || movie.original_title}
-              </h3>
-            </div>
-          </div>
-        ))}
-      </Carousel>
+    <>
+    <div className=" my-10 px-10 max-w-full ">
+    <h2 className="text-2xl font-bold mb-4 animate-color-change text-blue-600 text-glow">
+  {title}
+</h2>
+
+      <div>
+  <Carousel responsive={responsive} draggable={false} autoPlay={100} itemClass="mx-[10px]">
+        
+  {data?.map((movie) => (
+    <div
+      key={movie.id}
+      className=" bg-cover bg-no-repeat bg-center w-[200px] h-[300px]  relative hover:scale-110 transition-transform duration-500 ease-in-out cursor-pointer"
+      style={{
+        backgroundImage: `url(${import.meta.env.VITE_IMG_URL}${movie.poster_path})`,
+      }}
+      onClick={() => 
+        navigate(`/movie/${movie.id}`)
+      }
+    >
+      {/* <div className="bg-black w-full h-full opacity-40 absolute top-0 left-0 z-0" /> */}
+      <div className="relative flex flex-col items-center justify-end h-full">
+        {/* <h3 className="text-lg font-bold text-blue-700 truncate w-[180px] text-center">
+          {movie.name || movie.title || movie.original_title}
+        </h3> */}
+      </div>
     </div>
+    
+  ))}
+</Carousel>
+
+      </div>
+
+    </div>
+    </>
   );
 };
 
