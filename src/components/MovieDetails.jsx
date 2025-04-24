@@ -63,7 +63,7 @@ const MovieDetails = () => {
 
         <div className="flex-1">
           <h1 className="text-3xl font-bold text-yellow-400">{movie.title}</h1>
-          <p className="text-gray-300 mt-2">{movie.overview} Film ra mắt bởi {movie.production_companies[0].name}</p>
+          <p className="text-gray-300 mt-2 text-sm">{movie.overview} Film ra mắt bởi {movie.production_companies[0].name}</p>
           <p className="mt-4">
             <strong>Ngày phát hành:</strong>   {new Date(movie.release_date).toLocaleDateString("vi-VN")}
 
