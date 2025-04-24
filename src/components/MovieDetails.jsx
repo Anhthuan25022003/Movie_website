@@ -57,7 +57,7 @@ const MovieDetails = () => {
         <img
           src={`${import.meta.env.VITE_IMG_URL}${movie.poster_path}`}
           alt={movie.title}
-          className="sm:h-[400px] w-[300px] rounded-lg shadow-lg"
+          className="h-[300px] w-[200px] sm:h-[400px] sm:w-[300px] rounded-lg shadow-lg"
         />
 
 
@@ -90,14 +90,14 @@ const MovieDetails = () => {
 
         </div>
       </div>
-      <p className="flex mt-12 items-center ">
-            <strong className="text-center mt-4">Nhà sản xuất: </strong>
-            {movie.production_companies.map((company) => (
+      <p className="flex mt-10 items-center bg-white bg-opacity-35 h-9 justify-center mx-1 md:mx-48 2xl:mx-96 gap-x-2">
+            {/* <strong className="text-center mt-4">Nhà sản xuất: </strong> */}
+            {movie.production_companies.filter((company) => company.logo_path !== null).map((company) => (
               <img
                 key={company.id}
                 src={`${import.meta.env.VITE_IMG_URL}${company.logo_path}`}
                 alt={company.name}
-                className="max-w-36 max-h-14 ml-9"
+                className="w-10 h-10 sm:max-h-14 pl-2 bg-center object-contain"
               />
             ))}
     

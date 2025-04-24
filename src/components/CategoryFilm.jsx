@@ -57,7 +57,7 @@ const CategoryFilm = () => {
               <img
                 src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
                 alt={item.title}
-                className="w-full h-64 object-cover"
+                className="w-full h-64 object-cover "
                 onClick={()=>(
         navigate(`/movie/${item.id}`)
 

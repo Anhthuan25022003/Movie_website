@@ -15,11 +15,11 @@ const responsive = {
     items: 7,
   },
   tablet: {
-    breakpoint: { max: 1200, min: 600 },
+    breakpoint: { max: 1200, min: 500 },
     items: 3,
   },
   mobile: {
-    breakpoint: { max: 600, min: 0 },
+    breakpoint: { max: 500, min: 0 },
     items: 2,
   },
 };
@@ -36,12 +36,12 @@ const MovieList = ({ title, data }) => {
 </h2>
 
       <div>
-  <Carousel responsive={responsive} draggable={false} autoPlay={100} itemClass="mx-[10px]">
+  <Carousel responsive={responsive} draggable={false} autoPlay={100} itemClass="mx-[10px] sm:mx-[15px]">
         
   {data?.map((movie) => (
     <div
       key={movie.id}
-      className=" bg-cover bg-no-repeat bg-center w-[200px] h-[300px]  relative hover:scale-110 transition-transform duration-500 ease-in-out cursor-pointer"
+      className="w-[150px] bg-cover bg-no-repeat bg-center sm:w-[180px] h-[300px]  relative hover:scale-110 transition-transform duration-500 ease-in-out cursor-pointer"
       style={{
         backgroundImage: `url(${import.meta.env.VITE_IMG_URL}${movie.poster_path})`,
       }}
@@ -67,9 +67,9 @@ const MovieList = ({ title, data }) => {
   );
 };
 
-MovieList.propTypes = {
-  title: PropTypes.string.isRequired,
-  data: PropTypes.array,
-};
+// MovieList.propTypes = {
+//   title: PropTypes.string.isRequired,
+//   data: PropTypes.array,
+// };
 
 export default MovieList;
