@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'banner' : "url('./dist/assets/bg-banner.png')",
+        'banner' : "url('./public/assets/bg-banner.png')",
       },
       animation: {
           'color-change': 'colorChange 5s infinite linear',
