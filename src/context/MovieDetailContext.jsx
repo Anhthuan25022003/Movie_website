@@ -8,8 +8,8 @@ import axios from "axios";
 const MovieContext = createContext();
 
 const opts = {
-  height: "500",
-  width: "800",
+  height: "300",
+  width: "500",
   playerVars: {
     // https://developers.google.com/youtube/player_parameters
     autoplay: 1,
@@ -73,7 +73,7 @@ const MovieProvider = ({ children }) => {
         contentLabel="Example Modal"
       >
         {trailerUrl && (
-          <div className="block items-center justify-center mt-5">
+          <div className="block items-center justify-center mt-5 ">
             <button  className="bg-red-600 h-9 font-bold mb-3"> &lt; Quay lại</button>
             <YouTube videoId={trailerUrl} opts={opts} />
           </div>

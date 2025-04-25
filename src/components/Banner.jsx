@@ -18,9 +18,9 @@ const Banner = () => {
           <input
             type="email"
             placeholder="Địa chỉ email"
-            className="sm:p-4 w-[60%] sm:w-[95%] md:w-[400px] h-[40px] sm:[50px] rounded-full p-3 mt-5 bg-slate-600 bg-opacity-70 text-white"
+            className="sm:p-4 w-[60%] sm:w-[95%] md:w-[400px] h-[40px] sm:h-[50px] rounded-full p-3 mt-5 bg-slate-600 bg-opacity-70 text-white"
           />
-          <button className="sm:w-[95%] h-[40px] sm:h-[50px] md:w-[100px] bg-red-600 text-white py-2 px-4 mt-5 rounded-full ">
+          <button className=" sm:w-[95%] h-[40px] sm:h-[50px] md:w-[100px] bg-red-600 text-white py-2 px-4 mt-5 rounded-full ">
             Bắt đầu
           </button>
         </div>
