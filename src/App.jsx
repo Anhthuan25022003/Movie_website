@@ -115,12 +115,12 @@ function App() {
               <Route path="/contact" element={<ContactPage />} />
 
               {/* Layout riêng cho MovieDetails */}
-              <Route element={<MovieDetailLayout />}>
+              
+            </Route>
+            <Route element={<MovieDetailLayout />}>
                 <Route path="/movie/:id" element={<MovieDetails />} />
                 <Route path="/danhmuc/:theLoai" element={<CategoryFilm />} />
               </Route>
-            </Route>
-
             {/* Các route không cần đăng nhập */}
           </Route>
         </Routes>
