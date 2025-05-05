@@ -13,6 +13,9 @@ import axios from "axios";
 import Loading from "./components/Loading";
 import CategoryFilm from "./components/CategoryFilm";
 import Login from "./components/Login";
+import ProtectedLayout from "./Layouts/ProtectedLayout";
+import AuthContextProvider from "./context/AuthContextProvider";
+import Register from "./components/Register";
 
 function App() {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -20,7 +23,7 @@ function App() {
   const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
   const [searchData, setSearchData] = useState([]);
 
-  const [isLoading,setIsLoading]=useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSearch = async (value) => {
     const url = `https://api.themoviedb.org/3/search/movie?query=${value}&include_adult=false&language=vi&page=10`;
@@ -55,53 +58,75 @@ function App() {
           Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
         },
       };
-      setIsLoading(true)
+      setIsLoading(true);
       try {
-        const responses = await Promise.all(urls.map(url => axios.get(url, options)));
+        const responses = await Promise.all(
+          urls.map((url) => axios.get(url, options))
+        );
         setTrendingMovies(responses[0].data.results);
         setTopRatedMovies(responses[1].data.results);
         setNowPlayingMovies(responses[2].data.results);
-        setIsLoading(false)
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
   return (
+    <AuthContextProvider>
+
     <MovieProvider>
-      <Routes>
+        <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
-        {/* Layout chính (có Header + Footer) */}
-        <Route element={<MainLayout onSearch={handleSearch} />}>
-          <Route path="/" element={
-            <div className="h-full bg-black text-white min-h-screen pb-10 relative">
-              <Banner />
-              {isLoading && (<Loading/>)}
-              {searchData.length === 0 && (
-                <MovieList title="Phim Thịnh Hành" data={trendingMovies.slice(0, 15)} />
-              )}
-              {searchData.length === 0 && (
-                <MovieList title="Phim Đề Cử" data={nowPlayingMovies.slice(0, 10)} />
-              )}
-              {searchData.length === 0 && (
-                <MovieList title="Phim Đánh Giá Cao" data={topRatedMovies.slice(0, 10)} />
-              )}
-              {searchData.length > 0 && <MovieSearch data={searchData} />}
-            </div>
-          } />
-          <Route path="/genre" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/login" element={<Login />} />
-        </Route>
+          {/* Layout được bảo vệ: yêu cầu accessToken */}
+          <Route element={<ProtectedLayout />} errorElement={<Login />}>
+            <Route element={<MainLayout onSearch={handleSearch} />}>
+              <Route
+                path="/"
+                element={
+                  <div className="h-full bg-black text-white min-h-screen pb-10 relative">
+                    <Banner />
+                    {isLoading && <Loading />}
+                    {searchData.length === 0 && (
+                      <MovieList
+                        title="Phim Thịnh Hành"
+                        data={trendingMovies.slice(0, 15)}
+                      />
+                    )}
+                    {searchData.length === 0 && (
+                      <MovieList
+                        title="Phim Đề Cử"
+                        data={nowPlayingMovies.slice(0, 10)}
+                      />
+                    )}
+                    {searchData.length === 0 && (
+                      <MovieList
+                        title="Phim Đánh Giá Cao"
+                        data={topRatedMovies.slice(0, 10)}
+                      />
+                    )}
+                    {searchData.length > 0 && <MovieSearch data={searchData} />}
+                  </div>
+                }
+              />
+              <Route path="/genre" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
 
-        {/* Layout riêng cho MovieDetails (không Header/Footer) */}
-        <Route element={<MovieDetailLayout />}>
-          <Route path="/movie/:id" element={<MovieDetails />} />
-          <Route path="/danhmuc/:theLoai" element={<CategoryFilm />} />
-        </Route>
+              {/* Layout riêng cho MovieDetails */}
+              <Route element={<MovieDetailLayout />}>
+                <Route path="/movie/:id" element={<MovieDetails />} />
+                <Route path="/danhmuc/:theLoai" element={<CategoryFilm />} />
+              </Route>
+            </Route>
 
-      </Routes>
+            {/* Các route không cần đăng nhập */}
+          </Route>
+        </Routes>
     </MovieProvider>
+    </AuthContextProvider>
+
   );
 }
 

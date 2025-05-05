@@ -1,15 +1,18 @@
 import PropTypes from "prop-types";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import { debounce } from "lodash";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { FaDiceFive, FaSearch } from "react-icons/fa";
 import Login from "./Login";
+import { AuthContext } from "../context/AuthContextProvider";
+import { getAuth, signOut } from "firebase/auth";
 
 const Header = ({ onSearch, suggestions = [] }) => {
   const [search, setSearch] = useState("");
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const auth = getAuth();
 
   // Debounce để tránh gọi API liên tục
   const debouncedSearch = useCallback(
@@ -38,8 +41,24 @@ const Header = ({ onSearch, suggestions = [] }) => {
     };
   }, [search]);
 
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      localStorage.removeItem("accessToken");
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+    console.log(user);
+  };
+
+  const [showInfor, setShowInfor] = useState(false);
+
   return (
-    <div className="gap-x-3 sm:gap-x-9 p-4 flex justify-start fixed top-0  left-0 z-[9999] bg-slate-900 w-full">
+    <div className="gap-x-3 sm:gap-x-9 p-4 flex justify-between fixed top-0  left-0 z-[9999] bg-slate-900 w-full">
       <div className="flex items-center gap-8">
         <Link
           to="/"
@@ -139,6 +158,32 @@ const Header = ({ onSearch, suggestions = [] }) => {
           </ul>
         )}
       </div>
+      {user ? (
+        <div className="relative group ml-4">
+          <img
+            src={user.photoURL}
+            alt="User Avatar"
+            className="rounded-full w-8 h-8 mt-2 cursor-pointer relative"
+            onClick={()=>setShowInfor(!showInfor)}
+          />
+           {showInfor && (
+          <div className="absolute top-12 left-0 w-40 h-20 bg-slate-900 -translate-x-1/2 px-3 py-1 rounded shadow-lg">
+            <h1 className="text-white">Hello, {user.displayName}</h1>
+            <button
+              onClick={handleLogout}
+              className="mt-2 px-3 py-1 rounded bg-white text-red-600 text-sm font-bold shadow-md"
+            >
+              Logout
+            </button>
+          </div>
+        )}
+        </div>
+      ) : (
+        <Link
+          to="/login"
+          className="ml-4 px-3 py-1 rounded-full bg-red-700 text-white font-bold hover:bg-white hover:text-red-700"
+        ></Link>
+      )}
     </div>
   );
 };
