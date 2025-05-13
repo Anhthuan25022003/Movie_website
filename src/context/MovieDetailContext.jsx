@@ -78,7 +78,7 @@ const MovieProvider = ({ children }) => {
   <div className="flex flex-col items-center justify-center w-full mt-20 px-4">
     <button
       onClick={handleSetisOpen}
-      className="text-red-600 text-glow font-bold text-base mb-8 mx-auto sm:mx-32 self-start"
+      className="text-red-600 text-glow font-bold text-base mb-8 sm:mx-32 self-start"
     >
       &lt; Quay lại
     </button>
