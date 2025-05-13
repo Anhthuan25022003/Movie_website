@@ -48,7 +48,6 @@ const MovieProvider = ({ children }) => {
   const handleSetisOpen=()=>{
     setModalIsOpen(false)
   }
-  {console.log(import.meta.env.VITE_API_KEY)}
 
   
   return (
