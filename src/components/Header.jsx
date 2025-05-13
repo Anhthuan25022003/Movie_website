@@ -42,40 +42,32 @@ const Header = ({ onSearch, suggestions = [] }) => {
   }, [search]);
 
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  const { user,handleLogout } = useContext(AuthContext);
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      localStorage.removeItem("accessToken");
-      navigate("/login");
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-    console.log(user);
-  };
+  // const handleLogout = async () => {
+  //   try {
+  //     await signOut(auth);
+  //     localStorage.removeItem("accessToken");
+  //     document.title="Login"
+  //     navigate("/login");
+  //   } catch (error) {
+  //     console.error("Logout failed:", error);
+  //   }
+  //   console.log(user);
+  // };
 
   const [showInfor, setShowInfor] = useState(false);
 
   return (
     <div className="gap-x-3 sm:gap-x-9 p-4 flex justify-between fixed top-0  left-0 z-[9999] bg-slate-900 w-full">
-      <div className="flex items-center gap-8">
-        <Link
-          to="/"
-          className="text-[20px] sm:text-[35px] text-red-700 font-bold text-glow pt-1 sm:pt-0"
-        >
-          Movie
-        </Link>
-      </div>
-      <div className="relative inline-block text-left pt-2 group">
+       <div className="relative inline-block group">
         <div>
           <div
-            className="inline-flex justify-center w-full rounded-2xl 
+            className="inline-flex justify-start w-full rounded-2xl 
         border-0 shadow-sm p-2
-        text-sm font-medium text-red-600 text-glow hover:bg-slate-500 hover:bg-opacity-50
-        focus:outline-none"
+        focus:outline-none text-[20px] sm:text-[35px] text-red-700 font-bold text-glow pt-1 sm:pt-0"
           >
-            Loại film
+            Movie
           </div>
         </div>
 
@@ -110,12 +102,13 @@ const Header = ({ onSearch, suggestions = [] }) => {
           </div>
         </div>
       </div>
+   
 
-      <div className="relative flex items-center space-x-2 border border-none">
+      <div className="relative flex items-center space-x-1 sm:space-x-4 border border-none">
         <input
           type="text"
           placeholder="Tìm kiếm"
-          className="w-32  h-8 border-white p-1 bg-slate-600 text-white rounded-full md:w-72"
+          className="w-28  h-8 border-white p-1 bg-slate-600 text-white rounded-full sm:w-72 md:w-[400px] xl:w-[600px]"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onFocus={() => setShowDropdown(true)}
@@ -148,8 +141,10 @@ const Header = ({ onSearch, suggestions = [] }) => {
                 className="p-2 hover:bg-gray-500 hover:text-red-500 hover:text-glow cursor-pointer"
                 onClick={() => {
                   setSearch(suggestion);
-                  setShowDropdown(false);
+                  setFilteredSuggestions([]);
                   onSearch(suggestion);
+                  setShowDropdown(false);
+
                 }}
               >
                 {suggestion}
@@ -159,21 +154,20 @@ const Header = ({ onSearch, suggestions = [] }) => {
         )}
       </div>
       {user ? (
-        <div className="relative group ml-4">
+        <div className="relative group ml-4 flex items-center">
           <img
             src={user.photoURL}
-            alt="User Avatar"
-            className="rounded-full w-8 h-8 mt-2 cursor-pointer relative"
+            className="rounded-full w-8 h-8 mt-2 cursor-pointer relative  object-cover "
             onClick={()=>setShowInfor(!showInfor)}
           />
            {showInfor && (
-          <div className="absolute top-12 left-0 w-40 h-20 bg-slate-900 -translate-x-1/2 px-3 py-1 rounded shadow-lg">
-            <h1 className="text-white">Hello, {user.displayName}</h1>
+          <div className="absolute top-14 right-[2px] w-28 sm:w-40 h-20 bg-slate-900  px-3 py-2 rounded shadow-lg">
+            <h1 className="text-white text-[10px] sm:text-sm">Xin chào, {user.displayName?.split(" ")[0]}</h1>
             <button
               onClick={handleLogout}
-              className="mt-2 px-3 py-1 rounded bg-white text-red-600 text-sm font-bold shadow-md"
+              className="mt-2 px-3 py-1 rounded bg-white text-red-600 text-[10px] sm:text-sm font-bold shadow-md"
             >
-              Logout
+              Đăng xuất
             </button>
           </div>
         )}

@@ -8,8 +8,8 @@ import axios from "axios";
 const MovieContext = createContext();
 
 const opts = {
-  height: "300",
-  width: "500",
+  // height: "300",
+  // width: "500",
   playerVars: {
     // https://developers.google.com/youtube/player_parameters
     autoplay: 1,
@@ -18,6 +18,7 @@ const opts = {
 
 const MovieProvider = ({ children }) => {
   const [trailerUrl, setTrailerUrl] = useState("");
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleVideoTrailer = async (movieId) => {
@@ -25,7 +26,7 @@ const MovieProvider = ({ children }) => {
       method: "GET",
       headers: {
         accept: "application/json",
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NWE2ZDJkMzY3YTJjMzgxYjY5MThlZmYxZDQ2ZjBkMCIsIm5iZiI6MTcyNzAxODY1Ni44NjUsInN1YiI6IjY2ZjAzNmEwN2ZmMmJmNTdjZDI2NTk5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6wcH45hDa7Tigo6DyPZaYoxa_vKCP7YJExuopJN0tKQ'
+        Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
       },
     };
 
@@ -47,6 +48,7 @@ const MovieProvider = ({ children }) => {
   const handleSetisOpen=()=>{
     setModalIsOpen(false)
   }
+  {console.log(import.meta.env.VITE_API_KEY)}
 
   
   return (
@@ -54,37 +56,54 @@ const MovieProvider = ({ children }) => {
       {children}
 
       <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={handleSetisOpen}
-        style={{
-          overlay: {
-            position: "fixed",
-            zIndex: 9999,
-          },
-          content: {
-            top: "50%",
-            left: "50%",
-            right: "auto",
-            bottom: "auto",
-            marginRight: "-50%",
-            transform: "translate(-50%, -50%)",
-          },
+  isOpen={modalIsOpen}
+  onRequestClose={handleSetisOpen}
+  style={{
+    overlay: {
+      position: "fixed",
+      zIndex: 9999,
+      backgroundColor: "rgba(0, 0, 0, 0.75)",
+    },
+    content: {
+      inset: "auto",
+      padding: 0,
+      background: "transparent",
+      border: "none",
+      overflow: "visible",
+    },
+  }}
+  contentLabel="Trailer Modal"
+>
+{trailerUrl && (
+  <div className="flex flex-col items-center justify-center w-full mt-20 px-4">
+    <button
+      onClick={handleSetisOpen}
+      className="text-red-600 text-glow font-bold text-base mb-8 mx-auto sm:mx-32 self-start"
+    >
+      &lt; Quay lại
+    </button>
+    <div className="w-full max-w-[90vw] sm:w-[600px] aspect-video mx-auto sm:mx-32 ">
+      <YouTube
+        videoId={trailerUrl}
+        opts={{
+          width: "100%",
+          height: "100%",
+          playerVars: { autoplay: 1 },
         }}
-        contentLabel="Example Modal"
-      >
-        {trailerUrl && (
-          <div className="block items-center justify-center mt-5 ">
-            <button  className="bg-red-600 h-9 font-bold mb-3"> &lt; Quay lại</button>
-            <YouTube videoId={trailerUrl} opts={opts} />
-          </div>
-        )}
-      </Modal>
+        className="w-full h-full"
+      />
+    </div>
+  </div>
+)}
+
+</Modal>
+
     </MovieContext.Provider>
   );
 };
 
-MovieProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+// MovieProvider.propTypes = {
+//   children: PropTypes.node.isRequired,
+// };
 
 export { MovieProvider, MovieContext };

@@ -116,7 +116,8 @@ const Login = () => {
     }
     
   };
-  if (loading) return <div>Đang kiểm tra đăng nhập...</div>;
+  if (loading) return <div className="text-center">Đang kiểm tra đăng nhập...</div>;
+  document.title='Đăng nhập'
 
   return (
     <div className="bg-banner  w-full  h-[1000px] sm:h-[1080px] bg-cover bg-no-repeat flex  justify-center relative">

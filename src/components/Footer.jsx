@@ -55,8 +55,8 @@ const Footer = () => {
       </div>
 
       {/* Bản quyền */}
-      <div className="bg-[#082A4D] text-center py-3 text-xs">
-        © Copy right 2025 LeSiThuan.
+      <div className="bg-[#050d14] text-center py-3 text-xs">
+        © Copy right 2025 ThuanDev.
       </div>
     </footer>
   );

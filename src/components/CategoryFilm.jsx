@@ -8,6 +8,11 @@ const CategoryFilm = () => {
   const [movie, setMovie] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const handleSetMovieTitle = () => {
+    document.title = "Trang chủ";
+  };
+
+
   useEffect(() => {
     (async () => {
       setIsLoading(true);
@@ -36,11 +41,12 @@ const CategoryFilm = () => {
   return (
     <div className="pt-3 bg-slate-900 min-h-screen text-white">
       <h1 className="text-4xl font-bold mb-14 text-red-500 text-glow text-center mt-6">
-        {theLoai.replace("_", " ").toLowerCase()} movie
+        {theLoai.replace("_", " ").toUpperCase()} MOVIE
       </h1>
       <Link
         to="/"
         className=" ml-3 bg-red-500 hover:bg-slate-500 text-white font-semibold   py-2 px-5 rounded-lg transition"
+        onClick={handleSetMovieTitle}
       >
         Quay lại
       </Link>

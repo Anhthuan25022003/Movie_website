@@ -18,7 +18,7 @@ const AuthContextProvider = ({ children }) => {
         localStorage.setItem('accessToken', user.accessToken);
       } else {
         setUser(null);
-    localStorage.removeItem('accessToken');
+         localStorage.removeItem('accessToken');
 
         localStorage.clear();
       }

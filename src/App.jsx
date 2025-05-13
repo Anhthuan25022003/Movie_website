@@ -92,28 +92,26 @@ function App() {
                     {searchData.length === 0 && (
                       <MovieList
                         title="Phim Thịnh Hành"
-                        data={trendingMovies.slice(0, 15)}
+                        data={trendingMovies}
                       />
                     )}
                     {searchData.length === 0 && (
                       <MovieList
                         title="Phim Đề Cử"
-                        data={nowPlayingMovies.slice(0, 10)}
+                        data={nowPlayingMovies}
                       />
                     )}
                     {searchData.length === 0 && (
                       <MovieList
                         title="Phim Đánh Giá Cao"
-                        data={topRatedMovies.slice(0, 10)}
+                        data={topRatedMovies.slice(0, 15)}
                       />
                     )}
                     {searchData.length > 0 && <MovieSearch data={searchData} />}
                   </div>
                 }
               />
-              <Route path="/genre" element={<AboutPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-
+              
               {/* Layout riêng cho MovieDetails */}
               
             </Route>
@@ -122,6 +120,9 @@ function App() {
                 <Route path="/danhmuc/:theLoai" element={<CategoryFilm />} />
               </Route>
             {/* Các route không cần đăng nhập */}
+            <Route path="/genre" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+
           </Route>
         </Routes>
     </MovieProvider>

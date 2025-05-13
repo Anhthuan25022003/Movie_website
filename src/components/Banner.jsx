@@ -1,11 +1,14 @@
-import IconRatingHalf from "../assets/rating-half.png";
-import IconRating from "../assets/rating.png";
-import ImgMovie from "../assets/temp-1.jpeg";
-import IconPlay from "../assets/play-button.png";
+// import IconRatingHalf from "../assets/rating-half.png";
+// import IconRating from "../assets/rating.png";
+// import ImgMovie from "../assets/temp-1.jpeg";
+// import IconPlay from "../assets/play-button.png";
+
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
-    <div className=" h-[400px] sm:h-[600px] w-[95%] bg-banner bg-cover bg-center bg-no-repeat relative mt-[75px] mx-[2.5%]">
+    <div className=" h-[400px] sm:h-[600px] w-[95%] bg-banner bg-cover bg-center bg-no-repeat relative mt-[40px] sm:mt-[75px] mx-[2.5%]">
+     
       <div className="flex flex-col justify-center item-center w-full h-full bg-banner bg-cover bg-center ">
         <h1 className="sm:text-[25px] md:font-bold md:text-[50px] text-center content-center px-9 sm:px-36">
           Phim, series không giới hạn và nhiều nội dung khác
@@ -25,6 +28,7 @@ const Banner = () => {
           </button>
         </div>
       </div>
+
       {/* <div className="flex flex-col md:flex-row items-center justify-between absolute md:top-1/2 top-10 -translate-x-1/2 left-1/2 md:-translate-y-1/2 w-full ">
         <div className="md:w-[50%] w-full ">
           <div className="flex flex-col space-y-6 items-start p-10">
@@ -65,16 +69,16 @@ const Banner = () => {
         <div className="md:w-[50%] w-full flex items-center justify-center">
           <div className="w-[300px] h-[400px] relative group">
             <button className="w-full h-full absolute top-0 left-0 flex items-center justify-center backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
-              {/* <img src={IconPlay} alt="play" className="w-16 h-16" /> */}
-      {/* </button>
+             <img src={IconPlay} alt="play" className="w-16 h-16" /> 
+            </button>
             <img
               src={ImgMovie}
               alt="banner"
               className="object-cover w-full h-full"
             />
           </div>
-        </div> */}
-      {/* </div>  */}
+        </div> 
+       </div>  */}
     </div>
   );
 };
