@@ -88,8 +88,8 @@ const MovieDetails = () => {
 
       // Thêm review vào Firestore
       await addDoc(collection(db, "reviews"), reviewData);
-      setReview(""); // Xóa input sau khi gửi
-      setReviews((prevReviews) => [...prevReviews, reviewData]); // Cập nhật danh sách review mới
+      setReview("");
+      setReviews((prevReviews) => [...prevReviews, reviewData]);
     } catch (error) {
       console.error("Lỗi khi thêm review:", error);
     }
@@ -117,7 +117,7 @@ const MovieDetails = () => {
         <div className="md:w-[50%] w-full flex items-center justify-center">
           <div className="w-[200px] h-[300px] relative group">
             <button
-              className="w-full h-full absolute top-0 left-0 flex items-center justify-center backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out"
+              className="w-full h-full absolute top-0 left-0 flex items-center justify-center backdrop-blur-sm opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity duration-500 ease-in-out"
               onClick={() => handleVideoTrailer(id)}
             >
               <img src={IconPlay} alt="play" className="w-16 h-16" />
@@ -131,10 +131,10 @@ const MovieDetails = () => {
         </div>
 
         <div className="flex-1">
-          <h1 className="text-3xl font-bold text-yellow-400">{movie.title}</h1>
+          <h1 className="text-3xl font-bold text-yellow-400">{movie?.title}</h1>
           <p className="text-gray-300 mt-2 text-sm">
             {movie.overview} Film ra mắt bởi{" "}
-            {movie.production_companies[0].name}
+            {movie?.production_companies[0].name}
           </p>
           <p className="mt-4">
             <strong>Ngày phát hành:</strong>{" "}
@@ -164,7 +164,6 @@ const MovieDetails = () => {
         </div>
       </div>
       <p className="flex mt-10 items-center bg-white bg-opacity-35 h-9 justify-center mx-1 md:mx-48 2xl:mx-96 gap-x-2">
-        {/* <strong className="text-center mt-4">Nhà sản xuất: </strong> */}
         {movie.production_companies
           .filter((company) => company.logo_path !== null)
           .map((company) => (
@@ -175,17 +174,15 @@ const MovieDetails = () => {
               className="w-10 h-10 sm:max-h-14 pl-2 bg-center object-contain"
             />
           ))}
-
-        {/* <img src={`${import.meta.env.VITE_IMG_URL}${movie.production_companies[0].logo_path||movie.production_companies[1].logo_path}`} alt={movie.production_companies[0].name} className="max-w-36 max-h-14 ml-9" /> */}
       </p>
 
-      <div className="mt-10 flex justify-center gap-x-4 items-center">
-        <img src={user.photoURL} className="rounded-full w-10"/>
+      <div className="mt-10 flex justify-center gap-x-2 items-center">
+        <img src={user.photoURL} className="rounded-full w-10 mt-4"/>
         <input
           value={review}
           onChange={(e) => setReview(e.target.value)}
           placeholder="Bình luận..."
-          className="w-full md:w-[50%]  h-12 text-[12px] sm:text-sm mt-4 p-4 bg-gray-800 text-white border border-gray-600 rounded-lg"
+          className="w-full md:w-[50%]  h-11 text-[12px] sm:text-sm mt-4 p-4 bg-gray-800 text-white border border-gray-600 rounded-xl"
         />
         <button
           onClick={handleAddReview}

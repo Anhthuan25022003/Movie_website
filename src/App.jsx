@@ -16,6 +16,7 @@ import Login from "./components/Login";
 import ProtectedLayout from "./Layouts/ProtectedLayout";
 import AuthContextProvider from "./context/AuthContextProvider";
 import Register from "./components/Register";
+import HomePage from "./components/HomePage";
 
 function App() {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -79,6 +80,7 @@ function App() {
         <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/home" element={<HomePage />} />
 
           {/* Layout được bảo vệ: yêu cầu accessToken */}
           <Route element={<ProtectedLayout />} errorElement={<Login />}>
@@ -121,7 +123,7 @@ function App() {
               </Route>
             {/* Các route không cần đăng nhập */}
             <Route path="/genre" element={<AboutPage />} />
-              <Route path="/contact" element={<ContactPage />} />
+            <Route path="/contact" element={<ContactPage />} />
 
           </Route>
         </Routes>

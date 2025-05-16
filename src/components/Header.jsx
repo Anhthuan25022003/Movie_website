@@ -18,15 +18,16 @@ const Header = ({ onSearch, suggestions = [] }) => {
   const debouncedSearch = useCallback(
     debounce((query) => {
       onSearch(query);
-    }, 3000),
-    []
+    }, 1000),
+    [onSearch]
   );
-
+  
   useEffect(() => {
     if (search.trim() !== "") {
-      // debouncedSearch(search);
-
-      // Lọc danh sách gợi ý từ props
+      // Gọi API debounce sau 1000ms khi user dừng gõ
+      debouncedSearch(search);
+  
+      // Filter local suggestions để hiện dropdown ngay
       const filtered = suggestions.filter((item) =>
         item.toLowerCase().includes(search.toLowerCase())
       );
@@ -36,10 +37,12 @@ const Header = ({ onSearch, suggestions = [] }) => {
       setFilteredSuggestions([]);
       setShowDropdown(false);
     }
+  
     return () => {
-      // debouncedSearch.cancel();
+      debouncedSearch.cancel(); // Cleanup debounce khi unmount hoặc search thay đổi
     };
-  }, [search]);
+  }, [search, suggestions, debouncedSearch]);
+  
 
   const navigate = useNavigate();
   const { user,handleLogout } = useContext(AuthContext);
@@ -65,7 +68,7 @@ const Header = ({ onSearch, suggestions = [] }) => {
           <div
             className="inline-flex justify-start w-full rounded-2xl 
         border-0 shadow-sm p-2
-        focus:outline-none text-[20px] sm:text-[35px] text-red-700 font-bold text-glow pt-1 sm:pt-0"
+        focus:outline-none text-[20px] sm:text-[35px] text-red-700 font-bold text-glow pt-1 sm:pt-0 cursor-pointer"
           >
             Movie
           </div>
@@ -138,7 +141,7 @@ const Header = ({ onSearch, suggestions = [] }) => {
             {filteredSuggestions.map((suggestion, index) => (
               <li
                 key={index}
-                className="p-2 hover:bg-gray-500 hover:text-red-500 hover:text-glow cursor-pointer"
+                className="p-2 hover:text-red-500 hover:text-glow cursor-pointer"
                 onClick={() => {
                   setSearch(suggestion);
                   setFilteredSuggestions([]);

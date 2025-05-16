@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Loading from "./Loading";
-
+import { IoIosReturnLeft } from "react-icons/io";
 const CategoryFilm = () => {
   const { theLoai } = useParams();
   const [movie, setMovie] = useState([]);
@@ -39,31 +39,31 @@ const CategoryFilm = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="pt-3 bg-slate-900 min-h-screen text-white">
-      <h1 className="text-4xl font-bold mb-14 text-red-500 text-glow text-center mt-6">
-        {theLoai.replace("_", " ").toUpperCase()} MOVIE
+    <div className="pt-3 bg-black min-h-screen text-white ">
+      <h1 className="text-4xl font-bold mb-14  text-glow text-center mt-6 animate-color-change">
+        {theLoai.replace("_", " ").toLocaleUpperCase()} MOVIE
       </h1>
       <Link
         to="/"
-        className=" ml-3 bg-red-500 hover:bg-slate-500 text-white font-semibold   py-2 px-5 rounded-lg transition"
+        className=" ml-3  py-2 px-5 rounded-lg transition"
         onClick={handleSetMovieTitle}
       >
-        Quay lại
+        <IoIosReturnLeft className="ml-6 text-4xl text-red-700 font-bold"/>
       </Link>
 
       {isLoading ? (
         <Loading />
       ) : (
-        <div className="p-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="p-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {movie.map((item) => (
             <div
               key={item.id}
-              className="bg-slate-800 rounded-xl overflow-hidden shadow hover:shadow-lg transition duration-300"
+              className="bg-slate-900 rounded-xl overflow-hidden shadow hover:shadow-lg transition duration-300"
             >
               <img
-                src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                src={`${import.meta.env.VITE_IMG_URL}${item.poster_path}`}
                 alt={item.title}
-                className="w-full h-64 object-cover relative cursor-pointer sm:h-72"
+                className="w-full h-60 object-cover bg-center relative cursor-pointer sm:h-72"
                 onClick={() => navigate(`/movie/${item.id}`)}
               />
               {/* <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 hover:opacity-0 transition duration-300">

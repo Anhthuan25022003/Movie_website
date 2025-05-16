@@ -28,11 +28,11 @@ const MovieSearch = ({ data }) => {
   return (
     <div className="my-10 px-10 max-w-full">
       <h2 className="text-xl mb-4">KẾT QUẢ</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-1 gap-y-2">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-4 gap-y-2">
         {paginatedData.map((item) => (
           <div
             key={item.id}
-            className="bg-cover bg-no-repeat bg-center w-[200px] h-[300px] relative hover:scale-110 transition-transform duration-500 ease-in-out cursor-pointer"
+            className="bg-cover bg-no-repeat bg-center w-[150px] h-[250px] sm:w-[200px] sm:h-[300px] relative hover:scale-110 transition-transform duration-500 ease-in-out cursor-pointer"
             style={{
               backgroundImage: `url(https://image.tmdb.org/t/p/w500${item.poster_path})`,
             }}
@@ -69,8 +69,8 @@ const MovieSearch = ({ data }) => {
   );
 };
 
-MovieSearch.propTypes = {
-  data: PropTypes.array.isRequired,
-};
+// MovieSearch.propTypes = {
+//   data: PropTypes.array.isRequired,
+// };
 
 export default MovieSearch;

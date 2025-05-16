@@ -3,9 +3,9 @@ import Login from './Login'
 
 const HomePage = () => {
   return (
-    <><Modal>
+    <div>
       <Login/>
-      </Modal></>
+      hell</div>
   )
 }
 

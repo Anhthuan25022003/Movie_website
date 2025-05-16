@@ -77,11 +77,11 @@ const MovieProvider = ({ children }) => {
   <div className="flex flex-col items-center justify-center w-full mt-20 px-4">
     <button
       onClick={handleSetisOpen}
-      className="text-red-600 text-glow font-bold text-base mb-8 sm:mx-32 self-start"
+      className="text-red-600 text-glow font-bold text-base mb-8 sm:mx-20 md:mx-32 lg:mx-44 xl:mx-72 self-start"
     >
       &lt; Quay lại
     </button>
-    <div className="w-full max-w-[90vw] sm:w-[600px] aspect-video mx-auto sm:mx-32 ">
+    <div className="w-full max-w-[90vw] sm:w-[600px] aspect-video mx-auto sm:mx-20 md:mx-32 lg:mx-44 xl:mx-72">
       <YouTube
         videoId={trailerUrl}
         opts={{

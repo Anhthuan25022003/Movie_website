@@ -63,7 +63,7 @@ const Register = () => {
       <h1 className="text-red-700 absolute top-[30px] left-[30px] text-[20px] sm:text-[55px] font-bold text-glow">
         Movie
       </h1>
-      <div className="absolute w-96 h-[60%] bg-black bg-opacity-70 top-[10%]">
+      <div className="absolute w-96 h-[50%] bg-black bg-opacity-70 top-[10%]">
         <h1 className="ml-8 mt-10 text-white text-[20px] sm:text-3xl font-bold">
           Đăng kí
         </h1>

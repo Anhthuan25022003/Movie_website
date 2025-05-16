@@ -17,6 +17,7 @@ const Footer = () => {
             DANH MỤC PHỔ BIẾN
           </h3>
           <ul className="space-y-1">
+            
             <li>Phim Lẻ</li>
             <li>Phim Bộ</li>
             <li>Phim Hành Động</li>
